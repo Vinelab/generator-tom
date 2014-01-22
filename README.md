@@ -12,8 +12,8 @@
 - Testing server using [Google Chrome's webdriver](https://code.google.com/p/selenium/wiki/ChromeDriver) ([Selenium](http://docs.seleniumhq.org))
 ### Build Versioning
 - Keep builds history
-- Navigate and Checkout build versions *(work in progress)*
 - Latest build is copied to its own directory
+- Navigate and Checkout build versions *(work in progress)*
 ### Assets
 - Compiled Javascript with [Browserify](http://browserify.org)
 - Minified Javascript with [UglifyJS](https://github.com/mishoo/UglifyJS)
