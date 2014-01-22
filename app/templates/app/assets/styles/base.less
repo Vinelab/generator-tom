@@ -1,0 +1,216 @@
+.navigation-follows-wrapper{
+    max-width: 630px;
+}
+.social-follow{
+    margin-top: 5px;
+    li{
+
+        list-style: none;
+        float: right;
+        margin: 2px 10px;
+    }
+}
+
+.social-wrapper{
+    padding: 10px 8px;
+    border-right: 1px solid #8e847b;
+    p{
+        text-align: center;
+    }
+}
+
+.social{
+    li{
+        list-style: none;
+        float: right;
+        margin: 5px 10px;
+
+        a {
+            width: 20px;
+            height: 20px;
+            display: block;
+            background: transparent url( ../img/all-images.png ) no-repeat 0 0;
+
+        }
+    }
+
+    .facebook{
+        a{
+            background-position: -167px -2px;
+        }
+    }
+
+    .twitter {
+        a {
+            background-position: -212px -1px;
+        }
+    }
+
+    .youtube {
+        a {
+            background-position: -266px -2px;
+        }
+    }
+}
+
+.latest-news-container{
+    h2{
+        padding: 10px;
+        span{
+            display: inline-block;
+            margin-left: 10px;
+            width: 40px;
+            height: 25px;
+            background: transparent url( ../img/all-images.png ) no-repeat -303px -2px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.latest-events-container{
+    h2{
+        padding: 10px;
+        span{
+            display: inline-block;
+            margin-left: 10px;
+            width: 40px;
+            height: 25px;
+            background: transparent url( ../img/all-images.png ) no-repeat -405px -4px;
+            vertical-align: middle;
+        }
+    }
+}
+
+footer{
+    .social{
+        margin-top: 40px;
+
+        .facebook{
+            a{
+                background-position: -167px -52px
+            }
+        }
+
+        .twitter{
+            a {
+                background-position: -212px -50px;
+            }
+        }
+
+        .youtube{
+            a{
+                background-position: -266px -52px;
+            }
+        }
+    }
+}
+
+.more-button{
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px 0;
+    background-color: #6a5946;
+    margin: 10px 0;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.section-title{
+    position: absolute;
+    right: 225px;
+    top: -65px;
+    color: #ffffff;
+    z-index: 10;
+
+    span{
+        width: 60px;
+        height: 45px;
+        background-color: #ffffff;
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 20px;
+    }
+}
+
+
+.play-button{
+    width: 55px;
+    height: 40px;
+    background: transparent url(../img/all-images.png) no-repeat -124px -254px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 50;
+}
+//responsive slides plugin css
+
+/*! http://responsiveslides.com v1.54 by @viljamis */
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+  }
+
+@media ( max-width: 50em ){
+    .section-title{
+        right: 40px;
+    }
+    .social-wrapper{
+        display: none;
+    }
+
+    .social-follow{
+        position: fixed;
+        right: 0;
+        top: 350px;
+        width: 180px;
+        z-index: 2;
+    }
+
+    footer{
+        .social{
+            margin-top: 0;
+        }
+    }
+}
+.social-sharing-buttons{
+    li{
+        list-style: none;
+        float: right;
+        border-bottom: none !important;
+        margin: 5px;
+    }
+}

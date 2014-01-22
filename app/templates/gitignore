@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+vendor
+builds
+current
+
+# skip PlainTasks files
+*.TODO
