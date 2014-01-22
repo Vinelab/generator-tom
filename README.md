@@ -21,6 +21,7 @@
 - Minified CSS with [clean-css](https://github.com/GoalSmashers/clean-css)
 
 ## Installation
+- install [yeoman](http://yeoman.io) ```npm install -g yo```
 - ```git clone``` this repo
 - move into the cloned directory and ```npm link```
 - create your project's directory elsewhere ```mkdir ~/dev/my-app && cd $_```
