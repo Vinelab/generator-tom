@@ -29,26 +29,12 @@ VinelabGenerator.prototype.askFor = function askFor() {
 
     var prompts = [
         {
-            type: 'confirm',
-            name: 'customize',
-            message: 'Would you like to customize this installation ?',
-            default: true
-        },
-        {
-            when: function (response) {
-                return response.customize;
-            },
             name: 'name',
             message: 'Name your app',
-            default: 'App'
         },
         {
-            when: function (response) {
-                return response.customize;
-            },
             name: 'description',
-            message: 'Write a small description',
-            default: 'This will hurt you.'
+            message: 'Describe it with a small description',
         }
     ];
 
