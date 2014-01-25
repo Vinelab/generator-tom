@@ -1,0 +1,1 @@
+module.exports = (app)-> app.factory 'ioClient', -> require('socket.io-client')

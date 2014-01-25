@@ -1,1 +1,6 @@
 env: development
+
+socket:
+    scheme: 'http'
+    host: 'localhost'
+    port: 9091
