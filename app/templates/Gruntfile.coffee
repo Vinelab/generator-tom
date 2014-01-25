@@ -147,7 +147,7 @@ module.exports = (grunt)->
 
             test: ['unit-test', 'e2e-test']
             e2e: ['protractor:chrome'] #'protractor:firefox', 'protractor:safari'
-            servers: ['shell:webdriver', 'connect:server']
+            servers: ['shell:webdriver', 'connect:server', 'socket:server']
         }
 
         coffee: {
@@ -169,7 +169,7 @@ module.exports = (grunt)->
 
             server:
                 options:
-                    port: 9000
+                    port: 9090
                     hostname: 'localhost' # 0.0.0.0 for external access
                     keepalive: yes
         }
@@ -233,30 +233,45 @@ module.exports = (grunt)->
 
     # tasks
 
+    # run a socket.io server
+    # NB: used to testing/development purposes only
+    grunt.registerTask 'socket:server', ->
+
+        # grab hold of the async() method so that grunt
+        # doesn't end this process unless told to
+        cb = @async()
+
+        io = require('socket.io').listen 9091
+
+        io.set('log level', 2)
+
+        io.sockets.on 'connection', (socket)->
+
+            grunt.log.subhead 'socket'
+            grunt.log.ok('connection esatblished successfully')
+
+            socket.emit 'connection:established'
+            socket.on 'disconnect', ->
+                grunt.log.subhead 'socket'
+                grunt.log.error('disconnected')
+
     # run everything sequentially
     grunt.registerTask 'default:begin', ->
         grunt.log.subhead 'Making the Awesome...'
         grunt.log.oklns 'Builds will live in <%= app.build.path %>'
         grunt.log.oklns 'Current version of the running app will be in <%= app.build.current %>'
 
-    grunt.registerTask 'default:end', -> grunt.log.subhead "That's it, we're done!"
+    grunt.registerTask 'default:end', -> grunt.log.subhead 'That\'s it for now!'
 
-    grunt.registerTask 'default', [
-            'default:begin',
-            'coffeelint',
-            'browserify',
-            'uglify',
-            'less',
-            'clean:current',
-            'copy',
-            'test',
-            'default:end'
-        ]
+    grunt.registerTask 'default', ['default:begin', 'coffeelint', 'browserify', 'uglify', 'less', 'clean:current', 'copy', 'test', 'default:end']
 
     # serve the application
     grunt.registerTask 'serve', ->
         grunt.log.subhead 'development server'
-        grunt.log.ok 'http://localhost:9000'
+        grunt.log.ok 'http://localhost:9090'
+
+        grunt.log.subhead 'socket server'
+        grunt.log.ok 'http://localhost:9091'
 
         grunt.log.subhead 'testing server'
         grunt.log.writeln 'chrome webdriver (selenium) using port 4444'
