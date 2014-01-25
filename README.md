@@ -11,7 +11,7 @@
 
 ### Built-in Servers
 - Static server for development
-- WebSocket server using [socket.io](socket.io)
+- WebSocket server using [socket.io](http://socket.io)
 - Tests server using [Google Chrome's webdriver](https://code.google.com/p/selenium/wiki/ChromeDriver) ([Selenium](http://docs.seleniumhq.org))
 
 ### Build Versioning
