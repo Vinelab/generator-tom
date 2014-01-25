@@ -31,7 +31,7 @@
 
 ### WebSockets
 - Ships with a socket service that makes it easy to communicate using WebSockets
-- It wraps the [socket.io](socket.io) client library
+- It wraps the [socket.io](http://socket.io) client library
 - Supports namespaces (a.k.a channels)
 
 ### Testing
