@@ -1,26 +1,41 @@
-"use strict"
+'use strict'
 
 class StorageService
+
+    ###*
+     * Create a new StorageService instnace.
+     *
+     * @param  {$window} $window
+     * @return {StorageService}
+    ###
+    constructor: (@$window)->
 
     ###*
      * Put an item in storage.
      *
      * @param  {string} key
-     * @param  {string} value
+     * @param  {mixed} value
     ###
-    put: (key, value)-> localStorage.setItem(key, value)
+    put: (key, value)->
+        mapped = JSON.stringify {_v: value}
+        @$window.localStorage.setItem(key, mapped)
 
     ###*
      * Get an item from storage.
      *
      * @param  {string} key
-     * @return {string}
+     * @return {mixed}
     ###
-    get: (key)-> localStorage.getItem key
+    get: (key)->
+        value = @$window.localStorage.getItem key
+        # reduce stored value
+        return JSON.parse(value)?._v
 
     ###*
      * Flush storage.
     ###
-    clear: -> localStorage.clear()
+    flush: -> @$window.localStorage.clear()
 
-module.exports = (app)-> app.factory 'StorageService', -> new StorageService
+StorageService.$inject = ['$window']
+
+module.exports = (app)-> app.service 'StorageService', StorageService
