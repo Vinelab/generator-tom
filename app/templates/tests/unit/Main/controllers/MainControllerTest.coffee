@@ -3,7 +3,7 @@
 describe 'Main: MainController', ->
 
     # load the app
-    beforeEach module 'MaxwellHouse'
+    beforeEach module '<%= name %>'
 
     # prepare controller and scope
     MainController = {}

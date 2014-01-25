@@ -74,7 +74,7 @@ describe 'StorageService', ->
     store = null
 
     beforeEach ->
-        module 'MaxwellHouse'
+        module '<%= name %>'
         inject ($injector)-> store = $injector.get 'StorageService'
         # clear any existing data in local storage
         window.localStorage.clear()

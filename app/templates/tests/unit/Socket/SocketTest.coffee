@@ -41,7 +41,7 @@ describe 'Socket', ->
         test.factory 'Config', -> config
 
         # mock dat app
-        angular.mock.module 'MaxwellHouse', 'test.app'
+        angular.mock.module '<%= name %>', 'test.app'
 
         # gimme my Socket
         inject (Socket, Config, ioClient)-> socket = Socket
