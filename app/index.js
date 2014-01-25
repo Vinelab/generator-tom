@@ -30,11 +30,11 @@ VinelabGenerator.prototype.askFor = function askFor() {
     var prompts = [
         {
             name: 'name',
-            message: 'Name your app',
+            message: 'Name your app (CamelCase with no spaces)',
         },
         {
             name: 'description',
-            message: 'Describe it with a small description',
+            message: 'Describe it for us',
         }
     ];
 
@@ -50,12 +50,12 @@ VinelabGenerator.prototype.askFor = function askFor() {
 VinelabGenerator.prototype.app = function app() {
 
     this.mkdir('app');
-    this.copy('app/bootstrap.coffee', 'app/bootstrap.coffee');
+    this.template('app/bootstrap.coffee', 'app/bootstrap.coffee');
 };
 
 VinelabGenerator.prototype.views = function views() {
     this.mkdir('app/views');
-    this.copy('app/views/_main.html', 'app/views/main.html');
+    this.copy('app/views/main.html', 'app/views/main.html');
 };
 
 VinelabGenerator.prototype.config = function config() {
@@ -77,12 +77,15 @@ VinelabGenerator.prototype.sourcefiles = function sourcefiles() {
     this.mkdir('app/src');
     this.mkdir('app/src/Main');
     this.mkdir('app/src/Config');
+    this.mkdir('app/src/Socket');
     this.mkdir('app/src/Storage');
 
     this.copy('app/src/App.coffee', 'app/src/App.coffee');
     this.copy('app/src/Config/Config.coffee', 'app/src/Config/Config.coffee');
     this.copy('app/src/Main/controllers/MainController.coffee', 'app/src/Main/controllers/MainController.coffee');
-    this.copy('app/src/Storage/StorageService.coffee', 'app/src/Storage/StorageService.coffee');
+    this.template('app/src/Storage/StorageService.coffee', 'app/src/Storage/StorageService.coffee');
+    this.copy('app/src/Socket/io.coffee', 'app/src/Socket/io.coffee');
+    this.copy('app/src/Socket/Socket.coffee', 'app/src/Socket/Socket.coffee');
 };
 
 VinelabGenerator.prototype.deps = function deps() {
@@ -95,7 +98,7 @@ VinelabGenerator.prototype.deps = function deps() {
 
 VinelabGenerator.prototype.projectfiles = function projectfiles() {
     this.copy('gitignore', '.gitignore');
-    this.template('_index.html', 'index.html');
+    this.template('index.html', 'index.html');
 };
 
 VinelabGenerator.prototype.tests = function tests() {
@@ -104,9 +107,11 @@ VinelabGenerator.prototype.tests = function tests() {
     this.mkdir('tests/unit');
     this.mkdir('tests/unit/config');
     this.mkdir('tests/unit/Main/controllers');
+    this.mkdir('tests/unit/Socket');
 
     this.copy('tests/unit/config/karma.conf.coffee', 'tests/unit/config/karma.conf.coffee');
-    this.copy('tests/unit/Main/controllers/MainControllerTest.coffee', 'tests/unit/Main/controllers/MainControllerTest.coffee');
+    this.template('tests/unit/Socket/SocketTest.coffee', 'tests/unit/Socket/SocketTest.coffee');
+    this.template('tests/unit/Main/controllers/MainControllerTest.coffee', 'tests/unit/Main/controllers/MainControllerTest.coffee');
 
     // e2e tests
     this.mkdir('tests/e2e');
