@@ -27,7 +27,7 @@
 
 ### Local Storage
 - Ships with a local storage service that wraps the browser's local storage feature.
-- (todo) add support to store mixed data types (arrays, objects, etc.)
+- Supports storing mixed data types (arrays, objects, etc.) preserving data type
 
 ### WebSockets
 - Ships with a socket service that makes it easy to communicate using WebSockets
