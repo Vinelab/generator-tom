@@ -71,4 +71,4 @@ class Config
 
             settings = settings[prop]
 
-module.exports = (app)-> app.factory 'Config', -> config
+module.exports = (app)-> app.factory 'Config', -> new Config
