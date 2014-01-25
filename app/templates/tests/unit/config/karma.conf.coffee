@@ -13,7 +13,7 @@ module.exports = (config)->
             'vendor/angular/angular.js'
             'vendor/angular-mocks/angular-mocks.js'
             'current/app.js',
-            'tests/unit/**/*.coffee',
+            'tests/unit/**/*Test.coffee',
         ],
 
         # list of files and patterns to exclude
@@ -21,7 +21,7 @@ module.exports = (config)->
 
         # test results reporter to use
         # possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress'],
+        reporters: ['dots'],
 
         # web server port
         port: 6678,
