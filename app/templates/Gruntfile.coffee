@@ -1,5 +1,7 @@
 'use strict'
 
+fs = require 'fs'
+
 module.exports = (grunt)->
 
     grunt.option 'app',
@@ -35,6 +37,10 @@ module.exports = (grunt)->
                 # path to the directory that will carry the latest build
                 current: 'current'
         }
+
+        # set configuration parameters globally
+        set_app: grunt.config.set('app', '<% app %>')
+        set_timestamp: grunt.config.set('timestamp', '<% timestamp %>')
 
         # grunt-contrib-watch: watch our files for changes
         watch: {
@@ -119,13 +125,15 @@ module.exports = (grunt)->
                 ext: '.css'
                 dest: '<%= app.build.path %>/styles/'
         }
-
+        # some cool commands
         shell: {
+            # start chrome driver
             webdriver:
                 command: 'webdriver-manager start'
                 keepalive: yes
-                options:
-                    stdout: yes
+                options: stdout: yes
+            # mark the current build with a stamp in `current`/.build file
+            mark: command: 'echo <%= timestamp %> > <%= app.build.current %>/.build'
         }
 
         karma: {
@@ -203,12 +211,23 @@ module.exports = (grunt)->
         copy: {
             # copy our latest build to
             # the corresponding current directory
-            build:
+            current:
                 files: [
                     {
                         expand: yes
                         nonull: yes
                         cwd: '<%= app.build.path %>'
+                        src: ['**/*.js', '**/*.css']
+                        dest: '<%= app.build.current %>/'
+                    }
+                ]
+
+            build:
+                files: [
+                    {
+                        expand: yes
+                        nonull: yes
+                        cwd: '<%= app.build.dir%>/<%= timestamp %>'
                         src: ['**/*.js', '**/*.css']
                         dest: '<%= app.build.current %>/'
                     }
@@ -263,7 +282,18 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default:end', -> grunt.log.subhead 'That\'s it for now!'
 
-    grunt.registerTask 'default', ['default:begin', 'coffeelint', 'browserify', 'uglify', 'less', 'clean:current', 'copy', 'test', 'default:end']
+    grunt.registerTask 'default', [
+                            'default:begin'
+                            'coffeelint'
+                            'browserify'
+                            'uglify'
+                            'less'
+                            'clean:current'
+                            'copy:current'
+                            'test'
+                            'shell:mark'
+                            'default:end'
+                        ]
 
     # serve the application
     grunt.registerTask 'serve', ->
@@ -280,7 +310,14 @@ module.exports = (grunt)->
         grunt.task.run 'concurrent:servers'
 
     # build the project for development (skips minifying code)
-    grunt.registerTask 'build-dev', ['coffeelint', 'browserify', 'less', 'clean:current', 'copy']
+    grunt.registerTask 'build-dev', [
+                                'coffeelint'
+                                'browserify'
+                                'less'
+                                'clean:current'
+                                'copy:current'
+                                'shell:mark'
+                            ]
 
     # run end-to-end tests http://docs.angularjs.org/guide/dev_guide.e2e-testing
     grunt.registerTask 'e2e-test', ['clean:e2etests', 'coffee:e2etests', 'concurrent:e2e', 'clean:e2etests']
@@ -290,3 +327,69 @@ module.exports = (grunt)->
 
     # run all tests
     grunt.registerTask 'test', ['concurrent:test']
+
+    # list all builds
+    grunt.registerTask 'list', ->
+        # get the app configuration
+        app = grunt.config.get('app')
+        # read builds from filesystem
+        builds = getAllBuilds(app)
+        current = getCurrentBuild(app)
+
+        # print builds
+        for build in builds
+            if build is current then grunt.log.ok(build) else grunt.log.writeln(build)
+
+    # checkout a build (make it the current one)
+    grunt.registerTask 'checkout', ['Checkout a build of your choice'], (build)->
+        throw new Error('Please specify the build you are targeting.') if not build
+
+        # helper steps that can be used after checkout:<step>
+        stepping = false # initially we assume they're not taking a step
+        steps = ['first', 'last', 'prev', 'next']
+
+        # get the app configuration
+        app = grunt.config.get('app')
+
+        if (steps.indexOf(build) > -1) # is it a step what they meant ?
+            stepping = yes
+        else if not fs.existsSync("#{app.build.dir}/#{build}")  # look for the claimed build
+            message = "Build '#{build}' does not exist."
+            grunt.log.error(message)
+            grunt.log.writeln()
+            grunt.log.writeln('Use "grunt list" to check them out.')
+            grunt.log.writeln()
+            # oh no, we hope it's a typo
+            throw new Error(message)
+
+        build = getStepBuild(app, build) if stepping
+
+        grunt.log.subhead "Checking out #{build}"
+
+        # set the build as the current timestamp
+        grunt.config.set('timestamp', build)
+        # checkout
+        grunt.task.run 'clean:current'
+        grunt.task.run 'copy:build'
+        grunt.task.run 'shell:mark'
+
+getAllBuilds = (config)-> fs.readdirSync(config.build.dir)
+
+getCurrentBuild = (config)-> fs.readFileSync("#{config.build.current}/.build")
+                            .toString().split('\n')[0]
+getStepBuild = (config, step)->
+
+    builds = getAllBuilds(config)
+
+    switch step
+        when 'first' then builds[0]
+        when 'last' then builds[builds.length - 1]
+        when 'prev'
+            unless builds.indexOf(getCurrentBuild(config)) is 0
+                return builds[builds.indexOf(getCurrentBuild(config)) - 1]
+            throw new Error('Already on earliest build.')
+        when 'next'
+            unless builds.indexOf(getCurrentBuild(config)) is (builds.length - 1)
+                return builds[builds.indexOf(getCurrentBuild(config)) + 1]
+            throw new Error('Already on last build.')
+        else throw new Error("Unknown step #{step}")
