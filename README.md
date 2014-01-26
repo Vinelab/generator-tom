@@ -72,3 +72,13 @@ run E2E tests only.
 
 ### ```grunt unit-test```
 run Unit tests only.
+
+### ```grunt list```
+list all the builds and show the current one.
+
+### ```grunt checkout:<build|step>```
+checkout a build (make it the current one).
+
+- by target ```grunt checkout:2601201422635```
+- by step ```grunt checkout:next```
+    - supported steps: first, last, next, prev
