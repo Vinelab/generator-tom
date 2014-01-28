@@ -107,13 +107,108 @@ instead of ```src/Main/controllers/MainController.coffee```
 
 ```yo vlb:controller <feature> *<controller>*```
 
+Example
+
+```yo vlb:controller love brain```
+
+src/app/Love/controllers/BrainController
+
+```coffeescript
+'use strict'
+
+class BrainController
+
+    ###*
+     * Create a new BrainController instance
+     *
+     * @param  {Config/Config} Config
+     * @param  {$scope} $scope
+     * @param  {$location} $location
+     * @return {BrainController}
+    ###
+    constructor: (@Config, @$scope, @$location)->
+
+# inject controller dependencies
+BrainController.$inject = ['Config', '$scope', '$location']
+
+module.exports = (app)->
+    # bring in dependencies
+    require('src/Config/Config')(app)
+
+    # register
+    app.controller 'BrainController', BrainController
+```
+
 ### provider
 
 ```yo vlb:provider <feature> *<provider>*```
 
+Example
+
+```yo vlb:provider Stream --nofix```
+
+src/app/Stream/providers/Stream.coffee
+
+```coffeescript
+'use strict'
+
+class Stream
+
+    ###*
+     * This method is used by Angular to inject dependencies
+     * into this provider which in turn will be used
+     * to be injected into the constructor.
+     *
+     * @param  {src/Config/Config} Config
+     * @return {Stream}
+    ###
+    @$get: (Config)-> new this(Config)
+
+    ###*
+     * Create a new Stream instance.
+     *
+     * @param  {src/Config/Config} Config
+     * @return {Stream}
+    ###
+    constructor: (@Config)->
+
+Stream.$inject = ['Config']
+
+module.exports = (app)->
+    # bring in dependencies
+    require('src/Config/Config')(app)
+
+    # register
+    app.provider 'Stream', -> Stream
+```
+
 ### service
 
-```yo vlb:provider <feature> *<service>*```
+```yo vlb:service <feature> *<service>*```
+
+Example
+
+```yo vlb:service Api --bare```
+
+src/app/Api/ApiService.coffee
+
+```
+'use strict'
+
+class ApiService
+
+    ###*
+     * Create a new ApiService instnace.
+     *
+     * @param  {$window} $window
+     * @return {ApiService}
+    ###
+    constructor: (@$window)->
+
+ApiService.$inject = ['$window']
+
+module.exports = (app)-> app.service 'ApiService', ApiService
+```
 
 
 License
