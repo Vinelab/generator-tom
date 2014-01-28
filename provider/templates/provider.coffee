@@ -23,7 +23,8 @@ class <%= provider %>
 <%= provider %>.$inject = ['Config']
 
 module.exports = (app)->
-
+    # bring in dependencies
     require('src/Config/Config')(app)
 
+    # register
     app.provider '<%= provider %>', -> <%= provider %>
