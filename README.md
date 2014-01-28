@@ -82,3 +82,31 @@ checkout a build (make it the current one).
 - by target ```grunt checkout:2601201422635```
 - by step ```grunt checkout:next```
     - supported steps: first, last, next, prev
+
+### Running this project's tests
+```mocha --recursive```
+
+## Generators
+
+#### options
+> instructions between * are optional
+
+###```--bare```
+skip the sub-directory level.
+
+- ```yo vlb:controller main --bare``` will result in ```src/Main/MainController.coffee```
+instead of ```src/Main/controllers/MainController.coffee```
+
+###```--nofix```
+skip prefix or postfix when naming.
+
+- ```yo vlb:controller main --nofix``` will result in ```src/Main/controllers/Main.coffee```
+instead of ```src/Main/controllers/MainController.coffee```
+
+### controller
+
+```yo vlb:controller <feature> *<controller>*```
+
+### provider
+
+```yo vlb:provider <feature> *<provider>*```
