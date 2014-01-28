@@ -111,6 +111,11 @@ instead of ```src/Main/controllers/MainController.coffee```
 
 ```yo vlb:provider <feature> *<provider>*```
 
+### service
+
+```yo vlb:provider <feature> *<service>*```
+
+
 License
 --------
 [MIT license](http://opensource.org/licenses/MIT) Copyright © Vinelab
