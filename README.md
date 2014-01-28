@@ -192,7 +192,7 @@ Example
 
 src/app/Api/ApiService.coffee
 
-```
+```coffeescript
 'use strict'
 
 class ApiService
