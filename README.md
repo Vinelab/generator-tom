@@ -210,6 +210,30 @@ ApiService.$inject = ['$window']
 module.exports = (app)-> app.service 'ApiService', ApiService
 ```
 
+### factory
+
+```yo vlb:factory <feature> *<factory>*```
+
+Example
+
+```yo vlb:factory chocolate --bare```
+
+src/app/Chocolate/ChocolateFactory.coffee
+
+```coffeescript
+'use strict'
+
+class ChocolateFactory
+
+    ###*
+     * Create a new ChocolateFactory.
+     *
+     * @return {ChocolateFactory}
+    ###
+    constructor: ->
+
+module.exports = (app)-> app.factory 'ChocolateFactory', ChocolateFactory
+```
 
 License
 --------
