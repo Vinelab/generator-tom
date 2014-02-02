@@ -1,7 +1,7 @@
 # Tom
 ### Yeoman Generator for AngularJS Apps
 
-> Why Tom ? Because Tom Waits was playing all along the implementation and was a tru inspiration :saxophone:
+> Why Tom ? Because Tom Waits was playing all along the implementation and was a true inspiration :saxophone:
 
 ## Features
 
