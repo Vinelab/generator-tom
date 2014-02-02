@@ -1,4 +1,7 @@
-# VLB Yeoman Generator - AngularJS
+# Tom
+### Yeoman Generator for AngularJS Apps
+
+> Why Tom ? Because Tom Waits was playing all along the implementation and was a tru inspiration :saxophone:
 
 ## Features
 
@@ -16,7 +19,7 @@
 
 ### Build Versioning
 - Keep builds history
-- (todo) Navigate and checkout build versions
+- Navigate and checkout build versions
 - Latest build is copied to its own directory *current*
 
 ### Assets
@@ -39,13 +42,13 @@
 
 - Unit tests unsing [Karma](http://karma-runner.github.io)
 - [E2E tests]() using [Protractor](https://github.com/angular/protractor)
-- All the code provided ships with tests, we <3 tested code
+- All the code provided ships with tests, we :heart: tested code
 
 ## Installation
 - ```git clone``` this repo
 - move into the cloned directory and ```npm link```
 - create your project's directory elsewhere ```mkdir ~/dev/my-app && cd $_```
-- ```yo vlb```
+- ```yo tom```
 - in another terminal session run ```grunt serve```
 - ```grunt``` and you're done
 
@@ -94,22 +97,22 @@ checkout a build (make it the current one).
 ###```--bare```
 skip the sub-directory level.
 
-- ```yo vlb:controller main --bare``` will result in ```src/Main/MainController.coffee```
+- ```yo tom:controller main --bare``` will result in ```src/Main/MainController.coffee```
 instead of ```src/Main/controllers/MainController.coffee```
 
 ###```--nofix```
 skip prefix or postfix when naming.
 
-- ```yo vlb:controller main --nofix``` will result in ```src/Main/controllers/Main.coffee```
+- ```yo tom:controller main --nofix``` will result in ```src/Main/controllers/Main.coffee```
 instead of ```src/Main/controllers/MainController.coffee```
 
 ### controller
 
-```yo vlb:controller <feature> *<controller>*```
+```yo tom:controller <feature> *<controller>*```
 
 Example
 
-```yo vlb:controller love brain```
+```yo tom:controller love brain```
 
 src/app/Love/controllers/BrainController
 
@@ -141,11 +144,11 @@ module.exports = (app)->
 
 ### provider
 
-```yo vlb:provider <feature> *<provider>*```
+```yo tom:provider <feature> *<provider>*```
 
 Example
 
-```yo vlb:provider Stream --nofix```
+```yo tom:provider Stream --nofix```
 
 src/app/Stream/providers/Stream.coffee
 
@@ -184,11 +187,11 @@ module.exports = (app)->
 
 ### service
 
-```yo vlb:service <feature> *<service>*```
+```yo tom:service <feature> *<service>*```
 
 Example
 
-```yo vlb:service Api --bare```
+```yo tom:service Api --bare```
 
 src/app/Api/ApiService.coffee
 
@@ -212,11 +215,11 @@ module.exports = (app)-> app.service 'ApiService', ApiService
 
 ### factory
 
-```yo vlb:factory <feature> *<factory>*```
+```yo tom:factory <feature> *<factory>*```
 
 Example
 
-```yo vlb:factory chocolate --bare```
+```yo tom:factory chocolate --bare```
 
 src/app/Chocolate/ChocolateFactory.coffee
 
