@@ -238,6 +238,124 @@ class ChocolateFactory
 module.exports = (app)-> app.factory 'ChocolateFactory', ChocolateFactory
 ```
 
+### directive
+> ```nofix``` option is ignored
+
+#### options
+
+### ```--restrict```
+set the ```restrict``` option. **Default** ```'EA'```
+
+``` yo tom:directive --restrict=E```
+
+### ```--controller```
+create a controller along with this directive
+
+``` yo tom:directive --controller```
+
+or you may specify the controller prefix
+
+```yo tom:directive --controller=edit``` will resutl in ```EditController```
+
+### ```--templateUrl```
+set a URL for your template, will also create an empty template defaulting to the name of the directive in ```app/views/<directive>.html```
+
+### ```--transclude```
+set the transclude option to ```true```. **Default** not included
+
+Examples
+
+```yo tom:directive customers myCustomer --transclude --restrict=E --bare```
+
+app/src/Customers/myCustomer.coffee
+
+```coffeescript
+'use strict'
+
+module.exports = (app)-> app.directive 'myCustomer', ->
+
+    {
+        restrict: 'E'
+        transclude: yes
+        template: ''
+        scope: { }
+        link: (scope, element, attrs)->
+    }
+```
+
+```yo tom:directive customers myCustomer --bare --controller --templateUrl=app/views/my-customer.html```
+
+
+app/src/Customers/myCustomer.coffee
+```coffeescript
+'use strict'
+
+class MyCustomerController
+
+    ###*
+     * Create a new MyCustomerController instance
+     *
+     * @param  {Config/Config} Config
+     * @param  {$scope} $scope
+     * @return {MyCustomerController}
+    ###
+    constructor: (@Config, @$scope)->
+
+# inject controller dependencies
+MyCustomerController.$inject = ['Config', '$scope']
+
+module.exports = (app)-> app.directive 'myCustomer', ->
+
+    {
+        restrict: 'EA'
+        templateUrl: 'app/views/mycustomer.html'
+        controller: MyCustomerController
+    }
+```
+
+#### using controllers
+when implementing a controller for a directive, you might like to have methods accessible to the directive directly, these methods should be registered to ```$scope```:
+
+```coffeescript
+class MyCustomerController
+
+    constructor: (@Config, @$scope)->
+        @$scope.customers = [
+            {
+                name: 'Naomi'
+                address: '1600 Amphetheatre'
+                active: no
+            }
+
+        @$scope.activate = => @$scope.customer.active = yes
+        @$scope.disactivate = => @$scope.customer.active = no
+
+        # you can also proxy to the class preserving context
+        @$scope.do = @justDoIt
+
+    justDoIt: -> # √
+
+# inject controller dependencies
+MyCustomerController.$inject = ['Config', '$scope']
+
+module.exports = (app)-> app.directive 'myCustomer', ->
+
+    {
+        restrict: 'EA'
+        controller: MyCustomerController
+        templateUrl: '/app/views/customer.html'
+    }
+```
+
+and the directive can access it directly:
+```html
+<div>{{customer.name}} - {{customer.address}}</div>
+<div ng-show="customer.active">Active!</div>
+<a href ng-hide="customer.active" ng-click="activate()">Activate!</a>
+<a href ng-show="customer.active" ng-click="disactivate()">Disactivate</a>
+<a href ng-click="do()">Just Do It</a>
+```
+
 License
 --------
 [MIT license](http://opensource.org/licenses/MIT) Copyright © Vinelab
