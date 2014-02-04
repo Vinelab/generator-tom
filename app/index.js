@@ -50,7 +50,11 @@ VinelabGenerator.prototype.askFor = function askFor() {
 VinelabGenerator.prototype.app = function app() {
 
     this.mkdir('app');
-    this.template('app/bootstrap.coffee', 'app/bootstrap.coffee');
+};
+
+VinelabGenerator.prototype.boot = function boot() {
+    this.mkdir('app/boot');
+    this.copy('app/boot/start.coffee', 'app/boot/start.coffee');
 };
 
 VinelabGenerator.prototype.views = function views() {
@@ -71,6 +75,11 @@ VinelabGenerator.prototype.assets = function assets() {
     this.mkdir('app/assets/styles');
 
     this.copy('app/assets/styles/base.less', 'app/assets/styles/base.less');
+};
+
+VinelabGenerator.prototype.routesAndFilters = function routesAndFilters() {
+    this.copy('app/routes.coffee', 'app/routes.coffee');
+    this.copy('app/filters.coffee', 'app/filters.coffee');
 };
 
 VinelabGenerator.prototype.sourcefiles = function sourcefiles() {

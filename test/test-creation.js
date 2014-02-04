@@ -22,7 +22,9 @@ describe('tom generator', function () {
     it('creates expected files', function (done) {
         var expected = [
             // add files you expect to exist here.
-            'app/bootstrap.coffee',
+            'app/filters.coffee',
+            'app/routes.coffee',
+            'app/boot/start.coffee',
             'app/views/main.html',
             'app/config/default.yml',
             'app/config/development.yml',

@@ -1,11 +1,6 @@
-App = require 'app/bootstrap'
+App = require 'app/boot/start'
 
 require('src/Main/controllers/MainController')(App)
 
-# configure AngularJS
-App.config ($routeProvider)->
-    # setup routes
-    $routeProvider
-        .when '/',
-            controller: 'MainController'
-            templateUrl: 'app/views/main.html'
+require('app/filters')(App)
+require('app/routes')(App)
