@@ -5,7 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 var exec = require('child_process').exec;
 
-describe('vlb:service generator', function () {
+describe('tom:service generator', function () {
 
     beforeEach(function (done) {
         helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -25,7 +25,7 @@ describe('vlb:service generator', function () {
     });
 
     it ('creates files with the feature name, postfix and sub directories', function (done) {
-        var app = helpers.createGenerator('vlb:service', ['../../../service'], ['Api']);
+        var app = helpers.createGenerator('tom:service', ['../../../service'], ['Api']);
         app.options['skip-install'] = true;
 
         var expected = [
@@ -40,7 +40,7 @@ describe('vlb:service generator', function () {
     });
 
     it ('creates files directly in feature directory when --bare', function (done) {
-        var app = helpers.createGenerator('vlb:service', ['../../../service'], ['Api'], {
+        var app = helpers.createGenerator('tom:service', ['../../../service'], ['Api'], {
             'bare': true
         });
 
@@ -55,7 +55,7 @@ describe('vlb:service generator', function () {
     });
 
     it ('skips pre and postfixing file names with --nofix', function (done) {
-        var app = helpers.createGenerator('vlb:service', ['../../../service'], ['Api'], {
+        var app = helpers.createGenerator('tom:service', ['../../../service'], ['Api'], {
             'nofix': true
         });
 
@@ -70,7 +70,7 @@ describe('vlb:service generator', function () {
     });
 
     it ('accepts and considers both --bare and --nofix together', function (done) {
-        var app = helpers.createGenerator('vlb:service', ['../../../service'], ['Api'], {
+        var app = helpers.createGenerator('tom:service', ['../../../service'], ['Api'], {
             'nofix': true,
             'bare': true
         });
@@ -87,7 +87,7 @@ describe('vlb:service generator', function () {
     });
 
     it ('accepts a custom service name', function (done) {
-        var app = helpers.createGenerator('vlb:service', ['../../../service'], ['Api', 'authorization']);
+        var app = helpers.createGenerator('tom:service', ['../../../service'], ['Api', 'authorization']);
         app.options['skip-install'] = true;
 
         var expected = ['app/src/Api/services/AuthorizationService.coffee'];

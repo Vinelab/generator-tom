@@ -5,7 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 var exec = require('child_process').exec;
 
-describe('vlb:factory generator', function () {
+describe('tom:factory generator', function () {
 
     beforeEach(function (done) {
         helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -25,7 +25,7 @@ describe('vlb:factory generator', function () {
     });
 
     it ('creates files with the feature name, postfix and sub directories', function (done) {
-        var app = helpers.createGenerator('vlb:factory', ['../../../factory'], ['Chocolate']);
+        var app = helpers.createGenerator('tom:factory', ['../../../factory'], ['Chocolate']);
         app.options['skip-install'] = true;
 
         var expected = [
@@ -40,7 +40,7 @@ describe('vlb:factory generator', function () {
     });
 
     it ('creates files directly in feature directory when --bare', function (done) {
-        var app = helpers.createGenerator('vlb:factory', ['../../../factory'], ['Chocolate'], {
+        var app = helpers.createGenerator('tom:factory', ['../../../factory'], ['Chocolate'], {
             'bare': true
         });
 
@@ -55,7 +55,7 @@ describe('vlb:factory generator', function () {
     });
 
     it ('skips pre and postfixing file names with --nofix', function (done) {
-        var app = helpers.createGenerator('vlb:factory', ['../../../factory'], ['Chocolate'], {
+        var app = helpers.createGenerator('tom:factory', ['../../../factory'], ['Chocolate'], {
             'nofix': true
         });
 
@@ -70,7 +70,7 @@ describe('vlb:factory generator', function () {
     });
 
     it ('accepts and considers both --bare and --nofix together', function (done) {
-        var app = helpers.createGenerator('vlb:factory', ['../../../factory'], ['Chocolate'], {
+        var app = helpers.createGenerator('tom:factory', ['../../../factory'], ['Chocolate'], {
             'nofix': true,
             'bare': true
         });
@@ -87,7 +87,7 @@ describe('vlb:factory generator', function () {
     });
 
     it ('accepts a custom factory name', function (done) {
-        var app = helpers.createGenerator('vlb:factory', ['../../../factory'], ['Chocolate', 'milk']);
+        var app = helpers.createGenerator('tom:factory', ['../../../factory'], ['Chocolate', 'milk']);
         app.options['skip-install'] = true;
 
         var expected = ['app/src/Chocolate/factories/MilkFactory.coffee'];

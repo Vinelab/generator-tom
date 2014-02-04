@@ -5,14 +5,14 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 var exec = require('child_process').exec;
 
-describe('vlb generator', function () {
+describe('tom generator', function () {
     beforeEach(function (done) {
         helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
             if (err) {
                 return done(err);
             }
 
-            this.app = helpers.createGenerator('vlb:app', [
+            this.app = helpers.createGenerator('tom:app', [
                 '../../app'
             ]);
             done();
