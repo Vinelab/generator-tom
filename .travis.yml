@@ -4,5 +4,5 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-vinelab' ]; then cd .. && eval "mv $currentfolder generator-vinelab" && cd generator-vinelab; fi
+  - if [ "$currentfolder" != 'generator-tom' ]; then cd .. && eval "mv $currentfolder generator-tom" && cd generator-tom; fi
 
