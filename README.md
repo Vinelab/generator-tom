@@ -45,9 +45,9 @@
 - All the code provided ships with tests, we :heart: tested code
 
 ## Installation
-- ```git clone``` this repo
-- move into the cloned directory and ```npm link```
-- create your project's directory elsewhere ```mkdir ~/dev/my-app && cd $_```
+- install [yeoman](http://yeoman.io)
+- via [npm](https://npmjs.org/package/generator-tom) ```npm install -g generator-tom```
+- create your project's directory ```mkdir ~/dev/my-app && cd $_```
 - ```yo tom```
 - in another terminal session run ```grunt serve```
 - ```grunt``` and you're done
