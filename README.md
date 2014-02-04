@@ -114,7 +114,7 @@ Example
 
 ```yo tom:controller love brain```
 
-src/app/Love/controllers/BrainController
+app/src/Love/controllers/BrainController
 
 ```coffeescript
 'use strict'
@@ -150,7 +150,7 @@ Example
 
 ```yo tom:provider Stream --nofix```
 
-src/app/Stream/providers/Stream.coffee
+app/src/Stream/providers/Stream.coffee
 
 ```coffeescript
 'use strict'
@@ -193,7 +193,7 @@ Example
 
 ```yo tom:service Api --bare```
 
-src/app/Api/ApiService.coffee
+app/src/Api/ApiService.coffee
 
 ```coffeescript
 'use strict'
@@ -221,7 +221,7 @@ Example
 
 ```yo tom:factory chocolate --bare```
 
-src/app/Chocolate/ChocolateFactory.coffee
+app/src/Chocolate/ChocolateFactory.coffee
 
 ```coffeescript
 'use strict'
