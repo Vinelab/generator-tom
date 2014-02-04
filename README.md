@@ -1,5 +1,5 @@
-# Tom
-### Yeoman Generator for AngularJS Apps
+# Tom [![Build Status](https://travis-ci.org/Vinelab/generator-tom.png?branch=master)](https://travis-ci.org/Vinelab/generator-tom)
+### :a: Yeoman Generator for AngularJS App Scaffold in CoffeeScript
 
 > Why Tom ? Because Tom Waits was playing all along the implementation and was a true inspiration :saxophone:
 
