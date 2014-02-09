@@ -50,7 +50,7 @@ describe 'Socket', ->
         test.factory 'SocketService', -> socket_service
 
         # mock dat app
-        angular.mock.module 'Najem', 'test.app'
+        angular.mock.module '<%= name %>', 'test.app'
 
         # gimme my Socket
         inject (Socket, Config, ioClient)-> socket = Socket

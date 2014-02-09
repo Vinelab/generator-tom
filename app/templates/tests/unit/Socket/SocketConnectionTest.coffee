@@ -7,7 +7,7 @@ describe 'SocketConnection', ->
     J = jasmine
     JMock = J.createSpy
 
-    beforeEach module 'Najem'
+    beforeEach module '<%= name %>'
 
     socket = {}
     scope = {}
