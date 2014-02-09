@@ -356,6 +356,14 @@ and the directive can access it directly:
 <a href ng-click="do()">Just Do It</a>
 ```
 
+### TODO
+- ~~ship $element and $attrs by default with directive controller~~
+- ~~wrap ```Socket```'s returned ```socket``` with ```SocketConnection``` that wraps updates in ```$root.$apply``` to indicate an update on every event
+- tests sub generator
+- improve readme with instructions for loading dependencies and further explanations
+- exception handling
+- CDN deployment support
+
 License
 --------
 [MIT license](http://opensource.org/licenses/MIT) Copyright © Vinelab
