@@ -10,6 +10,7 @@ describe 'Socket', ->
     test = null
     config = null
     socket = null
+    socket_service = null
 
     # mocked classes
     class Config
@@ -20,7 +21,13 @@ describe 'Socket', ->
 
     class IOSocket
         on: JMock('on').andCallFake (event, callback)=> callback()
-        disconnect: JMock('disconnect')
+
+    class Connection
+        on: JMock('on').andCallFake (event, callback)=> callback()
+        close: JMock('close')
+
+    class Service
+        make: JMock('make').andReturn new Connection
 
 
     # load app and assign mocks
@@ -35,13 +42,15 @@ describe 'Socket', ->
         # assign mocks to globals
         config = new Config
         io = new IOClient
+        socket_service = new Service
 
         # register deps to our test app
         test.factory 'ioClient', -> io
         test.factory 'Config', -> config
+        test.factory 'SocketService', -> socket_service
 
         # mock dat app
-        angular.mock.module '<%= name %>', 'test.app'
+        angular.mock.module 'Najem', 'test.app'
 
         # gimme my Socket
         inject (Socket, Config, ioClient)-> socket = Socket
@@ -82,9 +91,9 @@ describe 'Socket', ->
     it 'closes channel connections', ->
         channel = '/some/channel/somewhere'
         connection = socket.open channel, (connection)->
-            connection.name = channel
+            connection.channel = JMock('channel').andReturn(channel)
             socket.close(connection)
-            expect(connection.disconnect).toHaveBeenCalled()
+            expect(connection.close).toHaveBeenCalled()
 
 
     it "sets channels[]'s main socket on initialization", ->
@@ -96,7 +105,7 @@ describe 'Socket', ->
     it 'keeps track of open/closed channels', ->
         channel = '/over/the/hills/and/far/away'
         connection = socket.open channel, (connection)->
-            connection.name = channel
+            connection.channel = JMock('channel').andReturn(channel)
 
             expect(socket.channels.hasOwnProperty(channel)).toBeTruthy()
             expect(socket.channels[channel] instanceof IOSocket).toBeTruthy()
