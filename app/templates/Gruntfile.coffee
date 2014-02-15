@@ -69,29 +69,23 @@ module.exports = (grunt)->
         browserify: {
             options:
                 transform: ['coffeeify', 'envify', 'brfs']
-                aliasMappings: [
-                    { # expose the app directory through app/
-                        expand: yes
-                        cwd: 'app'
-                        src: ['**/*.coffee']
-                        dest: 'app/'
-                    }
-                    { # expose source files through src/
-                        expand: yes
-                        cwd: 'app/src'
-                        src: ['**/*.coffee']
-                        dest: 'src/'
-                    }
-                    { # expose vendor files through vendor/
-                        cwd: 'vendor'
-                        src: ['**/*.js']
-                        dest: 'vendor/'
-                        flatten: yes
-                    }
-                ]
-
             # all the source files
             all:
+                options:
+                    alias: [
+                        'app/filters.coffee:filters'
+                        'app/routes.coffee:routes'
+                        'app/src/Config/Config.coffee:Config'
+                        'app/src/Main/controllers/MainController.coffee:MainController'
+                    ]
+                    aliasMappings: [
+                        {
+                            expand: yes
+                            cwd: 'app/src'
+                            src: ['Storage/**/*.coffee', 'Socket/**/*.coffee']
+                            dest: 'src/'
+                        }
+                    ]
                 src: ['<%= app.path %>/src/App.coffee']
                 dest: '<%= app.build.path %>/<%= app.build.filename %>.js'
         }
@@ -211,14 +205,35 @@ module.exports = (grunt)->
         copy: {
             # copy our latest build to
             # the corresponding current directory
+            # with some angular dependencies
             current:
                 files: [
-                    {
+                    { # source files
                         expand: yes
                         nonull: yes
                         cwd: '<%= app.build.path %>'
                         src: ['**/*.js', '**/*.css']
                         dest: '<%= app.build.current %>/'
+                    }
+                    {# angularjs
+                        src: 'vendor/angular/angular.min.js'
+                        dest: '<%= app.build.current %>/vendor/angular.min.js'
+                    }
+                    {# angularjs map
+                        src: 'vendor/angular/angular.min.js.map'
+                        dest: '<%= app.build.current %>/vendor/angular.min.js.map'
+                    }
+                    {# angularjs route
+                        src: 'vendor/angular-route/angular-route.min.js'
+                        dest: '<%= app.build.current %>/vendor/angular-route.min.js'
+                    }
+                    {# angularjs route map
+                        src: 'vendor/angular-route/angular-route.min.js.map'
+                        dest: '<%= app.build.current %>/vendor/angular-route.min.js.map'
+                    }
+                    {# angularjs cookies
+                        src: 'vendor/angular-cookies/angular-cookies.min.js.map'
+                        dest: '<%= app.build.current %>/angular-cookies.min.js.map'
                     }
                 ]
 

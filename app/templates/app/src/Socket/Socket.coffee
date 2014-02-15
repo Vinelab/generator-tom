@@ -92,6 +92,6 @@ module.exports = (app)->
 
     require('src/Socket/services/SocketService')(app)
     require('src/Socket/factories/io')(app)
-    require('src/Config/Config')(app)
+    require('Config')(app)
 
     app.provider 'Socket', -> Socket

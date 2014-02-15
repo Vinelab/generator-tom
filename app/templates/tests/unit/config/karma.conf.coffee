@@ -10,7 +10,8 @@ module.exports = (config)->
 
         # list of files / patterns to load in the browser
         files: [
-            'vendor/angular/angular.js'
+            'current/vendor/angular.min.js'
+            'current/vendor/angular-route.min.js'
             'vendor/angular-mocks/angular-mocks.js'
             'current/app.js',
             'tests/unit/**/*Test.coffee',

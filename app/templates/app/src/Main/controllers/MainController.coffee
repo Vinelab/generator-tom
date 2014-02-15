@@ -16,9 +16,9 @@ MainController.$inject = ['$scope', '$location', 'Config', 'StorageService', 'So
 
 module.exports = (app)->
 
-    require('src/Config/Config')(app)
-    require('src/Storage/StorageService')(app)
+    require('Config')(app)
     require('src/Socket/Socket')(app)
+    require('src/Storage/StorageService')(app)
 
     # bind controller to app
     app.controller 'MainController', MainController

@@ -1,6 +1,6 @@
-App = require 'app/boot/start'
+App = angular.module('CleanAndClear', ['ngRoute'])
 
-require('src/Main/controllers/MainController')(App)
+require('MainController')(App)
 
-require('app/filters')(App)
-require('app/routes')(App)
+require('filters')(App)
+require('routes')(App)
