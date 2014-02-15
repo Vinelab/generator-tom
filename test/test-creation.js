@@ -24,7 +24,6 @@ describe('tom generator', function () {
             // add files you expect to exist here.
             'app/filters.coffee',
             'app/routes.coffee',
-            'app/boot/start.coffee',
             'app/views/main.html',
             'app/config/default.yml',
             'app/config/development.yml',
