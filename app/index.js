@@ -30,7 +30,7 @@ VinelabGenerator.prototype.askFor = function askFor() {
     var prompts = [
         {
             name: 'name',
-            message: 'Name your app (CamelCase with no spaces)',
+            message: 'Name your app (this will be the module name as well)',
         },
         {
             name: 'description',
@@ -50,11 +50,6 @@ VinelabGenerator.prototype.askFor = function askFor() {
 VinelabGenerator.prototype.app = function app() {
 
     this.mkdir('app');
-};
-
-VinelabGenerator.prototype.boot = function boot() {
-    this.mkdir('app/boot');
-    this.copy('app/boot/start.coffee', 'app/boot/start.coffee');
 };
 
 VinelabGenerator.prototype.views = function views() {
