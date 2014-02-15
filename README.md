@@ -359,10 +359,11 @@ and the directive can access it directly:
 ### TODO
 - ~~ship $element and $attrs by default with directive controller~~
 - ~~wrap ```Socket```'s returned ```socket``` with ```SocketConnection``` that wraps updates in ```$root.$apply``` to indicate an update on every event~~
+- ~~improve build speed 90x by specifying browserify aliases instead of including all files by default~~
+- improve readme with instructions for loading dependencies as browserify aliases/aliasMappings
 - tests sub generator
-- improve readme with instructions for loading dependencies and further explanations
 - exception handling
-- CDN deployment support
+- CDN deployment support to aws S3
 
 License
 --------
