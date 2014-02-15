@@ -1,4 +1,4 @@
-App = angular.module('CleanAndClear', ['ngRoute'])
+App = angular.module('<%= name %>', ['ngRoute'])
 
 require('MainController')(App)
 
