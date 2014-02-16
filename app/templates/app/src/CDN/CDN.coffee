@@ -73,7 +73,7 @@ module.exports = (app)->
 
     Config = require('Config')(app)
     # whitelist cdn endpoints
-    app.config ['$sceDelegateProvider', ($sceDelegateProvider)->
+    app?.config? ['$sceDelegateProvider', ($sceDelegateProvider)->
 
         endpoints = Config.get('cdn')
         cdn = ['self']
@@ -87,6 +87,6 @@ module.exports = (app)->
         $sceDelegateProvider.resourceUrlWhitelist(cdn)
     ]
 
-    app.service 'CDN', -> CDN
+    app?.service? 'CDN', -> CDN
     # make class available through 'require'
     return CDN
