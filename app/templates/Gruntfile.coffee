@@ -75,6 +75,7 @@ module.exports = (grunt)->
                     alias: [
                         'app/filters.coffee:filters'
                         'app/routes.coffee:routes'
+                        'app/src/CDN/CDN.coffee:CDN'
                         'app/src/Config/Config.coffee:Config'
                         'app/src/Main/controllers/MainController.coffee:MainController'
                     ]
