@@ -81,11 +81,13 @@ VinelabGenerator.prototype.sourcefiles = function sourcefiles() {
     this.mkdir('app/src');
     this.mkdir('app/src/Main');
     this.mkdir('app/src/Config');
+    this.mkdir('app/src/CDN');
     this.mkdir('app/src/Socket');
     this.mkdir('app/src/Storage');
 
     this.copy('app/src/App.coffee', 'app/src/App.coffee');
     this.copy('app/src/Config/Config.coffee', 'app/src/Config/Config.coffee');
+    this.copy('app/src/CDN/CDN.coffee', 'app/src/CDN/CDN.coffee');
     this.copy('app/src/Main/controllers/MainController.coffee', 'app/src/Main/controllers/MainController.coffee');
     this.template('app/src/Storage/StorageService.coffee', 'app/src/Storage/StorageService.coffee');
     this.copy('app/src/Socket/factories/io.coffee', 'app/src/Socket/factories/io.coffee');
@@ -100,6 +102,7 @@ VinelabGenerator.prototype.deps = function deps() {
 
     this.copy('bowerrc', '.bowerrc');
     this.copy('Gruntfile.coffee', 'Gruntfile.coffee');
+    this.template('aws.json', 'aws.json');
 };
 
 VinelabGenerator.prototype.projectfiles = function projectfiles() {
@@ -119,6 +122,7 @@ VinelabGenerator.prototype.tests = function tests() {
     this.template('tests/unit/Socket/SocketTest.coffee', 'tests/unit/Socket/SocketTest.coffee');
     this.template('tests/unit/Socket/SocketConnectionTest.coffee', 'tests/unit/Socket/SocketConnectionTest.coffee');
     this.template('tests/unit/Main/controllers/MainControllerTest.coffee', 'tests/unit/Main/controllers/MainControllerTest.coffee');
+    this.template('tests/unit/CDN/CDNTest.coffee', 'tests/unit/CDN/CDNTest.coffee');
 
     // e2e tests
     this.mkdir('tests/e2e');
