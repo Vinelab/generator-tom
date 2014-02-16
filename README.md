@@ -9,8 +9,41 @@
 - CoffeeScript source code linting
 
 ### Configuration
-- Environment-based configuration provided through a ```Config``` class
+- Environment-based configuration, set ```NODE_ENV``` environment variable to ```development``` on your machine for a successful build
 - Modify configuration attribtues at runtime
+
+#### usage
+Configuration is provider through a class called ```Config``` with two function for ```get```ting and ```set```ting configuration attribtues.
+
+#### ```get```
+The example below shows a sample configuration for the ```api``` attribue in ```app/config/development.yml```
+
+```yaml
+api:
+    credentials:
+        key: '7968tuyfgjhavsbdfjk'
+    host: 'http://api.service.url'
+    redirect_url: 'http://my.place.url'
+```
+
+to load this configuration when needed
+
+```coffeescript
+api = Config.get('api') # Object { credentials: ..., host: ..., redirect_url: ...}
+```
+
+you may also dig for a deeper path inside attribtues using ```dot``` notation
+
+```coffeescript
+host = Config.get('api.host')
+api_key = Conig.get('api.credentials.key')
+```
+
+#### ```set```
+setting an attribtue is as easy as getting it
+```coffeescript
+Config.set('api.host', 'http://some.other.url')
+```
 
 ### Built-in Servers
 - Static server for development
@@ -27,9 +60,93 @@
 - Minified Javascript with [UglifyJS](https://github.com/mishoo/UglifyJS)
 - [LESS](http://www.lesscss.org) CSS pre-processor
 - Minified CSS with [clean-css](https://github.com/GoalSmashers/clean-css)
+- Delivery of static assets from a CDN
+
+#### CDN
+Deliver your build's static files from an external CDN.
+
+In the desired environment's configuration file. i.e. ```app/config/production.yml```
+
+##### specify endpoints
+> **WARNING** endpoints will be whitelisted with Angular's [ng.$sceDelegateProvider.whitelist](http://docs.angularjs.org/api/ng.$sceDelegateProvider)
+
+```yaml
+cdn:
+    url: 'http://cdn.service.url'
+```
+
+You may also specify an endpoint per asset type:
+> supported: ```html,css,js,img```
+
+```yaml
+cdn:
+    url: 'http://cdn.service.url'
+    html: 'http://cdn.assets.html.service.url'
+    css: 'http://cdn.assets.css.service.url'
+    js: 'http://cdn.assets.js.service.url'
+    img: 'http://cdn.images.service.url'
+```
+And if one of the types does not exist it will fallback to ```cdn:url```, however if the ```cdn``` configuration is not found the URIs will only be preceded by a ```/``` delivering from the same host (```self```).
+
+### serving assets
+- ```CDN.template('uri/here.html')``` for ```HTML```
+- ```CDN.css('uri/style.css')``` for ```CSS```
+- ```CDN.js('my/script.js')``` for ```Javascript```
+- ```CDN.img('pretty/penguin.jpg')``` for images
+
+
+#### deploy to AWS S3
+- deploy your assets directly to Amazon Simple Storage Service (using [grunt-aws](https://www.npmjs.org/package/grunt-aws))
+    - configure **aws** in ```aws.json```
+    - use ```grunt deploy:aws``` to deploy
+
+##### *tip:* multiple buckets
+
+```javascript
+// aws.json
+{
+    "s3": {
+        "buckets": {
+            "default": "my-default-duck",
+            "html": "my-html-only"
+        },
+
+        "key": "",
+
+        "secret": ""
+    }
+}
+```
+
+```coffeescript
+# Gruntfile.coffee
+
+...
+
+s3: {
+
+    options:
+        bucket: '<%= aws.s3.buckets.default %>'
+        accessKeyId: '<%= aws.s3.key %>'
+        secretAccessKey: '<%= aws.s3.secret %>'
+
+    current:
+        cwd: 'current/'
+        src: '**'
+
+    views:
+        options:
+            bucket: '<%= aws.s3.buckets.html %>'
+        cwd: 'app/views/'
+        src: '**'
+}
+
+...
+
+```
 
 ### Local Storage
-- Ships with a local storage service that wraps the browser's local storage feature.
+- Ships with a local storage service that wraps the browser's local storage feature
 - Supports storing mixed data types (arrays, objects, etc.) preserving data type
 
 ### WebSockets
@@ -85,6 +202,9 @@ checkout a build (make it the current one).
 - by target ```grunt checkout:2601201422635```
 - by step ```grunt checkout:next```
     - supported steps: first, last, next, prev
+
+### ```grunt deploy:aws```
+deploy static assets to an AWS S3 bucket. Will upload everything inside ```current/``` and ```app/views/```
 
 ### Running this project's tests
 ```mocha --recursive```
@@ -355,15 +475,12 @@ and the directive can access it directly:
 <a href ng-show="customer.active" ng-click="disactivate()">Disactivate</a>
 <a href ng-click="do()">Just Do It</a>
 ```
-
+----------
 ### TODO
-- ~~ship $element and $attrs by default with directive controller~~
-- ~~wrap ```Socket```'s returned ```socket``` with ```SocketConnection``` that wraps updates in ```$root.$apply``` to indicate an update on every event~~
-- ~~improve build speed 90x by specifying browserify aliases instead of including all files by default~~
+- move shipped code (except MainController) to their own directory ```lib``` to keep ```src``` for the features only
 - improve readme with instructions for loading dependencies as browserify aliases/aliasMappings
-- tests sub generator
+- sub generator for tests
 - exception handling
-- CDN deployment support to aws S3
 
 License
 --------
