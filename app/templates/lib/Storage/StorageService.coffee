@@ -38,4 +38,4 @@ class StorageService
 
 StorageService.$inject = ['$window']
 
-module.exports = (app)-> app.service 'StorageService', StorageService
+module.exports = (app)-> app.service 'Storage', StorageService

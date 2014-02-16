@@ -86,12 +86,12 @@ class Socket
         else "#{socket.scheme}://#{socket.host}:#{socket.port}"
 
 
-Socket.$inject = ['Config', 'io', 'SocketService']
+Socket.$inject = ['Config', 'ioClient', 'SocketService']
 
 module.exports = (app)->
 
-    require('src/Socket/services/SocketService')(app)
-    require('src/Socket/factories/io')(app)
     require('Config')(app)
+    require('lib/Socket/factories/io')(app)
+    require('lib/Socket/services/SocketService')(app)
 
     app.provider 'Socket', -> Socket

@@ -1,6 +1,6 @@
 'use strict'
 
-SocketConnection = require('src/Socket/SocketConnection')
+SocketConnection = require('lib/Socket/SocketConnection')
 
 describe 'SocketConnection', ->
 

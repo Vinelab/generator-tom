@@ -13,8 +13,8 @@ class Config
     ###
     constructor: ->
 
-        settings = yamljs.parse fs.readFileSync "#{__dirname}/../../config/#{process.env.NODE_ENV}.yml"
-        defaults  = yamljs.parse fs.readFileSync "#{__dirname}/../../config/default.yml"
+        settings = yamljs.parse fs.readFileSync "#{__dirname}/../../app/config/#{process.env.NODE_ENV}.yml"
+        defaults  = yamljs.parse fs.readFileSync "#{__dirname}/../../app/config/default.yml"
 
         @settings = _.extend defaults ? {}, settings ? {}
 

@@ -1,6 +1,6 @@
 'use strict'
 
-SocketConnection = require('src/Socket/SocketConnection')
+SocketConnection = require('lib/Socket/SocketConnection')
 
 class SocketService
 
@@ -10,7 +10,7 @@ class SocketService
      * @param  {$rootScope} $rootScope
      * @return {SocketService}
     ###
-    constructor: (@$rootScope)->
+    constructor: (@$rootScope, @SocketConnection)->
 
     ###*
      * Make a new Socket/SocketConnection

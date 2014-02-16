@@ -73,18 +73,20 @@ module.exports = (grunt)->
             all:
                 options:
                     alias: [
-                        'app/filters.coffee:filters'
                         'app/routes.coffee:routes'
-                        'app/src/CDN/CDN.coffee:CDN'
-                        'app/src/Config/Config.coffee:Config'
+                        'app/filters.coffee:filters'
+                        'lib/CDN/CDN.coffee:CDN'
+                        'lib/Config/Config.coffee:Config'
+                        'lib/Socket/Socket.coffee:Socket'
+                        'lib/Storage/StorageService.coffee:Storage'
                         'app/src/Main/controllers/MainController.coffee:MainController'
                     ]
                     aliasMappings: [
                         {
                             expand: yes
-                            cwd: 'app/src'
+                            cwd: 'lib'
                             src: ['Storage/**/*.coffee', 'Socket/**/*.coffee']
-                            dest: 'src/'
+                            dest: 'lib/'
                         }
                     ]
                 src: ['<%= app.path %>/src/App.coffee']

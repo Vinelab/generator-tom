@@ -80,20 +80,21 @@ VinelabGenerator.prototype.routesAndFilters = function routesAndFilters() {
 VinelabGenerator.prototype.sourcefiles = function sourcefiles() {
     this.mkdir('app/src');
     this.mkdir('app/src/Main');
-    this.mkdir('app/src/Config');
-    this.mkdir('app/src/CDN');
-    this.mkdir('app/src/Socket');
-    this.mkdir('app/src/Storage');
+    this.mkdir('app/lib');
+    this.mkdir('lib/Config');
+    this.mkdir('lib/CDN');
+    this.mkdir('lib/Socket');
+    this.mkdir('lib/Storage');
 
     this.copy('app/src/App.coffee', 'app/src/App.coffee');
-    this.copy('app/src/Config/Config.coffee', 'app/src/Config/Config.coffee');
-    this.copy('app/src/CDN/CDN.coffee', 'app/src/CDN/CDN.coffee');
+    this.copy('lib/Config/Config.coffee', 'lib/Config/Config.coffee');
+    this.copy('lib/CDN/CDN.coffee', 'lib/CDN/CDN.coffee');
     this.copy('app/src/Main/controllers/MainController.coffee', 'app/src/Main/controllers/MainController.coffee');
-    this.template('app/src/Storage/StorageService.coffee', 'app/src/Storage/StorageService.coffee');
-    this.copy('app/src/Socket/factories/io.coffee', 'app/src/Socket/factories/io.coffee');
-    this.copy('app/src/Socket/services/SocketService.coffee', 'app/src/Socket/services/SocketService.coffee');
-    this.copy('app/src/Socket/SocketConnection.coffee', 'app/src/Socket/SocketConnection.coffee');
-    this.copy('app/src/Socket/Socket.coffee', 'app/src/Socket/Socket.coffee');
+    this.copy('lib/Storage/StorageService.coffee', 'lib/Storage/StorageService.coffee');
+    this.copy('lib/Socket/factories/io.coffee', 'lib/Socket/factories/io.coffee');
+    this.copy('lib/Socket/services/SocketService.coffee', 'lib/Socket/services/SocketService.coffee');
+    this.copy('lib/Socket/SocketConnection.coffee', 'lib/Socket/SocketConnection.coffee');
+    this.copy('lib/Socket/Socket.coffee', 'lib/Socket/Socket.coffee');
 };
 
 VinelabGenerator.prototype.deps = function deps() {
