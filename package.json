@@ -9,7 +9,12 @@
     "yeoman-generator",
     "tom",
     "generator-tom",
-    "coffeescript"
+    "coffeescript",
+    "angular",
+    "angularjs",
+    "commonjs",
+    "browserify",
+    "testing"
   ],
 
   "homepage": "https://github.com/Vinelab/generator-tom",
