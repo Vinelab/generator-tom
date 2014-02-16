@@ -47,7 +47,7 @@ class Config
             if value? and i+1 is path.length
                 setting[prop] = value
 
-            setting = setting[prop]
+            setting = setting?[prop]
 
         return setting
 
@@ -71,4 +71,8 @@ class Config
 
             settings = settings[prop]
 
-module.exports = (app)-> app.factory 'Config', -> new Config
+module.exports = (app)->
+    configuration = new Config
+    app?.factory? 'Config', -> configuration
+
+    return configuration
