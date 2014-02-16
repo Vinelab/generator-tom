@@ -17,13 +17,17 @@ class <%= controller %>
 # inject controller dependencies
 <%= controller %>.$inject = ['Config', '$scope', '$element', '$attrs']
 <% } %>
-module.exports = (app)-> app.directive '<%= directive %>', ->
+module.exports = (app)->
 
-    {
-        restrict: '<%= restrict %>'
-        <% if (transclude) { %>transclude: yes<% } %>
-        <% if (templateUrl) { %>templateUrl: '<%= templateUrl %>'<% } else { %>template: ''<% } %>
-        <% if (controller) { %>controller: <%= controller %>
-        <% } else { %>scope:{ },
-        link: (scope, element, attrs)-><% } %>
-    }
+    <% if (templateUrl) { %>CDN = require('CDN')(app)<% } %>
+
+    app.directive '<%= directive %>', ->
+
+        {
+            restrict: '<%= restrict %>'
+            <% if (transclude) { %>transclude: yes<% } %>
+            <% if (templateUrl) { %>templateUrl: CDN.template('<%= templateUrl %>')<% } else { %>template: ''<% } %>
+            <% if (controller) { %>controller: <%= controller %>
+            <% } else { %>scope:{ },
+            link: (scope, element, attrs)-><% } %>
+        }
