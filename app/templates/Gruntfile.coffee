@@ -52,7 +52,7 @@ module.exports = (grunt)->
 
         }
 
-        # grunt-coffeelint: configuration
+        # grunt-coffeelint: lint it
         coffeelint: {
 
             Gruntfile: ['Gruntfile.coffee']
@@ -65,7 +65,7 @@ module.exports = (grunt)->
 
         }
 
-        # grunt-browserify: configuration
+        # grunt-browserify: commonjs magic
         browserify: {
             options:
                 transform: ['coffeeify', 'envify', 'brfs']
@@ -89,7 +89,7 @@ module.exports = (grunt)->
                 src: ['<%= app.path %>/src/App.coffee']
                 dest: '<%= app.build.path %>/<%= app.build.filename %>.js'
         }
-
+        # grunt-contrib-uglify: make things look uglier than they are
         uglify: {
 
             all:
@@ -105,7 +105,7 @@ module.exports = (grunt)->
                 }
 
         }
-
+        # grunt-contrib-less: css pre-processor
         less: {
 
             options:
@@ -119,7 +119,7 @@ module.exports = (grunt)->
                 ext: '.css'
                 dest: '<%= app.build.path %>/styles/'
         }
-        # some cool commands
+        # grunt-shell: some cool commands
         shell: {
             # start chrome driver
             webdriver:
@@ -129,21 +129,21 @@ module.exports = (grunt)->
             # mark the current build with a stamp in `current`/.build file
             mark: command: 'echo <%= timestamp %> > <%= app.build.current %>/.build'
         }
-
+        # grunt-karma: it's a bitch!
         karma: {
 
             unit:
                 configFile: 'tests/unit/config/karma.conf.coffee'
                 singleRun: yes
         }
-
+        # grunt-protractor-runner: chrome's webdriver
         protractor: {
             # phantomjs: options: configFile: 'tests/e2e/config/e2e.phantom.js'
             chrome: options: configFile: 'tests/e2e/config/e2e.chrome.js'
             # safari: options: configFile: 'tests/e2e/config/e2e.safari.js'
             # firefox: options: configFile: 'tests/e2e/config/e2e.firefox.js'
         }
-
+        # grunt-concurrent: run tasks in parallel
         concurrent: {
             options: { logConcurrentOutput: yes }
 
@@ -151,7 +151,8 @@ module.exports = (grunt)->
             e2e: ['protractor:chrome'] #'protractor:firefox', 'protractor:safari'
             servers: ['shell:webdriver', 'connect:server', 'socket:server']
         }
-
+        # grunt-contrib-coffee: compile coffeescript
+        # files to javascript for e2e testing
         coffee: {
             e2etests:
                 options:
@@ -166,7 +167,7 @@ module.exports = (grunt)->
                     }
                 ]
         }
-
+        # grunt-contrib-connect: static web server
         connect: {
 
             server:
@@ -175,7 +176,7 @@ module.exports = (grunt)->
                     hostname: 'localhost' # 0.0.0.0 for external access
                     keepalive: yes
         }
-
+        # grunt-contrib-clean: cleanup stuff
         clean: {
 
             current:
@@ -201,7 +202,7 @@ module.exports = (grunt)->
                 ]
         }
 
-        # grunt-contrib-copy: configuration
+        # grunt-contrib-copy: copy source files
         copy: {
             # copy our latest build to
             # the corresponding current directory
@@ -249,8 +250,26 @@ module.exports = (grunt)->
                 ]
 
         }
+        # grunt-aws: aws s3 deployment
+        s3: {
+            options:
+                bucket: '<%= aws.s3.bucket %>'
+                accessKeyId: '<%= aws.s3.key %>'
+                secretAccessKey: '<%= aws.s3.secret %>'
+                # preview deployment
+                # dryRun: yes
+
+            current:
+                cwd: 'current/'
+                src: '**'
+
+            views:
+                cwd: 'app/views/'
+                src: '**'
+        }
 
     # add contrib and other tasks
+    grunt.loadNpmTasks 'grunt-aws'
     grunt.loadNpmTasks 'grunt-karma'
     grunt.loadNpmTasks 'grunt-shell'
     grunt.loadNpmTasks 'grunt-concurrent'
@@ -342,6 +361,9 @@ module.exports = (grunt)->
 
     # run all tests
     grunt.registerTask 'test', ['concurrent:test']
+
+    # deploy to aws s3
+    grunt.registerTask 'deploy:aws', ['s3']
 
     # list all builds
     grunt.registerTask 'list', ->
