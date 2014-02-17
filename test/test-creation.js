@@ -38,6 +38,7 @@ describe('tom generator', function () {
             'lib/Socket/services/SocketService.coffee',
             'lib/Socket/SocketConnection.coffee',
             'lib/Socket/Socket.coffee',
+            'app.yml',
             '.bowerrc', 'Gruntfile.coffee', '.gitignore', 'index.html', 'aws.json',
             'tests/unit/config/karma.conf.coffee',
             'tests/unit/CDN/CDNTest.coffee',

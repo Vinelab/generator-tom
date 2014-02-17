@@ -80,7 +80,7 @@ VinelabGenerator.prototype.routesAndFilters = function routesAndFilters() {
 VinelabGenerator.prototype.sourcefiles = function sourcefiles() {
     this.mkdir('app/src');
     this.mkdir('app/src/Main');
-    this.mkdir('app/lib');
+    this.mkdir('lib');
     this.mkdir('lib/Config');
     this.mkdir('lib/CDN');
     this.mkdir('lib/Socket');
@@ -101,6 +101,7 @@ VinelabGenerator.prototype.deps = function deps() {
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
 
+    this.copy('app.yml', 'app.yml');
     this.copy('bowerrc', '.bowerrc');
     this.copy('Gruntfile.coffee', 'Gruntfile.coffee');
     this.template('aws.json', 'aws.json');
