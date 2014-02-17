@@ -1,0 +1,17 @@
+classmap:
+    - app/routes.coffee:routes
+    - app/filters.coffee:filters
+    - lib/CDN/CDN.coffee:CDN
+    - lib/Config/Config.coffee:Config
+    - lib/Socket/Socket.coffee:Socket
+    - lib/Storage/StorageService.coffee:Storage
+    - app/src/Main/controllers/MainController.coffee:MainController
+
+autoload:
+-
+    expand: yes
+    cwd: lib
+    src:
+    - Storage/**/*.coffee
+    - Socket/**/*.coffee
+    dest: lib/

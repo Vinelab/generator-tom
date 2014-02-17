@@ -65,6 +65,8 @@ module.exports = (grunt)->
 
         }
 
+        deps: grunt.file.readYAML('app.yml')
+
         # grunt-browserify: commonjs magic
         browserify: {
             options:
@@ -72,23 +74,8 @@ module.exports = (grunt)->
             # all the source files
             all:
                 options:
-                    alias: [
-                        'app/routes.coffee:routes'
-                        'app/filters.coffee:filters'
-                        'lib/CDN/CDN.coffee:CDN'
-                        'lib/Config/Config.coffee:Config'
-                        'lib/Socket/Socket.coffee:Socket'
-                        'lib/Storage/StorageService.coffee:Storage'
-                        'app/src/Main/controllers/MainController.coffee:MainController'
-                    ]
-                    aliasMappings: [
-                        {
-                            expand: yes
-                            cwd: 'lib'
-                            src: ['Storage/**/*.coffee', 'Socket/**/*.coffee']
-                            dest: 'lib/'
-                        }
-                    ]
+                    alias: '<%= deps.classmap %>'
+                    aliasMappings: '<%= deps.autoload %>'
                 src: ['<%= app.path %>/src/App.coffee']
                 dest: '<%= app.build.path %>/<%= app.build.filename %>.js'
         }
