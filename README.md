@@ -169,6 +169,68 @@ s3: {
 - in another terminal session run ```grunt serve```
 - ```grunt``` and you're done
 
+## Directory Structure
+```yaml
+- app
+    - assets            : asset resources (styles and images)
+    - config            : app configuration files
+    - src               : app features source files
+    - views             : app views
+- builds                : builds versions (created after the first build)
+- current               : the current build's code (created after the first build)
+- lib                   : built-in libraries
+- tests                 : all your tests go here
+    - e2e               : end to end testing files (filnames should follow *Test.coffee)
+        - config        : configuration for E2E tests
+    - unit              : unit testing files (filenames should follow *Test.coffee)
+        - config        : configuration for unit tests
+- app.yml               : list your app's components
+```
+
+## App Foundation
+separate listing of dependencies makes it seamless to replace the implementation of a feature or module as long as their interface (usage) match, almost what the [Liskov principle](http://en.wikipedia.org/wiki/Liskov_substitution_principle) is about. An easy way to load the app's foundational components is to list them in ```app.yml``` as such:
+
+```yaml
+classmap:
+    - app/routes.coffee:routes
+    - app/filters.coffee:filters
+    - lib/CDN/CDN.coffee:CDN
+    - lib/Config/Config.coffee:Config
+    - lib/Socket/Socket.coffee:Socket
+    - lib/Storage/StorageService.coffee:Storage
+    - app/src/Main/controllers/MainController.coffee:MainController
+
+autoload:
+-
+    expand: yes
+    cwd: lib
+    src:
+    - Storage/**/*.coffee
+    - Socket/**/*.coffee
+    dest: lib/
+```
+### ```classmap```
+will be translated as a browserify ```alias```, exposing the file/module as specified after ```:``` which makes it possible to ```require``` the module by alias.
+
+*example:* ```app/routes.coffee:routes``` can be included as ```require('routes')``` in any class
+
+### ```autoload```
+will be translated to ```aliasMappings``` in browserify, loads the files according to the patterns in ```src``` and exposes them according to the ```dest```
+
+*example:*
+
+```yaml
+-
+    expand: yes
+    cwd: lib
+    src:
+    - Storage/**/*.coffee
+    - Socket/**/*.coffee
+    dest: lib/
+```
+
+now we can ```require('lib/Storage/StorageService')``` and anything under those directories.
+
 ## Commands
 
 ### ```grunt```
@@ -477,8 +539,6 @@ and the directive can access it directly:
 ```
 ----------
 ### TODO
-- move shipped code (except MainController) to their own directory ```lib``` to keep ```src``` for the features only
-- improve readme with instructions for loading dependencies as browserify aliases/aliasMappings
 - sub generator for tests
 - exception handling
 
