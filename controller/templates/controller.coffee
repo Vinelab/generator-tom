@@ -17,7 +17,7 @@ class <%= controller %>
 
 module.exports = (app)->
     # bring in dependencies
-    require('src/Config/Config')(app)
+    require('Config')(app)
 
     # register
     app.controller '<%= controller %>', <%= controller %>

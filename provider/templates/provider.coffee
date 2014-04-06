@@ -7,7 +7,7 @@ class <%= provider %>
      * into this provider which in turn will be used
      * to be injected into the constructor.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @return {<%= provider %>}
     ###
     @$get: (Config)-> new this(Config)
@@ -15,7 +15,7 @@ class <%= provider %>
     ###*
      * Create a new <%= provider %> instance.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @return {<%= provider %>}
     ###
     constructor: (@Config)->
@@ -24,7 +24,7 @@ class <%= provider %>
 
 module.exports = (app)->
     # bring in dependencies
-    require('src/Config/Config')(app)
+    require('Config')(app)
 
     # register
     app.provider '<%= provider %>', -> <%= provider %>

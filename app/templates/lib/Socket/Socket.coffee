@@ -7,7 +7,7 @@ class Socket
      * into this provider which in turn will be used
      * to be injected into the constructor.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @param  {io} ioClient
      * @param  {Socket/SocketService} SocketService
      * @return {Socket}
@@ -19,7 +19,7 @@ class Socket
      *     here's where the initial connection
      *     to the `main` socket happens.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @param  {io} io
      * @param  {Socket/SocketService} SocketService
      * @return {Socket}

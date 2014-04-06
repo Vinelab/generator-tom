@@ -318,7 +318,7 @@ BrainController.$inject = ['Config', '$scope', '$location']
 
 module.exports = (app)->
     # bring in dependencies
-    require('src/Config/Config')(app)
+    require('Config')(app)
 
     # register
     app.controller 'BrainController', BrainController
@@ -344,7 +344,7 @@ class Stream
      * into this provider which in turn will be used
      * to be injected into the constructor.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @return {Stream}
     ###
     @$get: (Config)-> new this(Config)
@@ -352,7 +352,7 @@ class Stream
     ###*
      * Create a new Stream instance.
      *
-     * @param  {src/Config/Config} Config
+     * @param  {Config} Config
      * @return {Stream}
     ###
     constructor: (@Config)->
@@ -361,7 +361,7 @@ Stream.$inject = ['Config']
 
 module.exports = (app)->
     # bring in dependencies
-    require('src/Config/Config')(app)
+    require('Config')(app)
 
     # register
     app.provider 'Stream', -> Stream
