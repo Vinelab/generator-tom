@@ -241,6 +241,8 @@ module.exports = (grunt)->
 
         }
         # grunt-aws: aws s3 deployment
+        aws: grunt.file.readJSON('aws.json')
+        
         s3: {
             options:
                 bucket: '<%= aws.s3.bucket %>'
